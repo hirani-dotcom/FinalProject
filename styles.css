@@ -78,9 +78,17 @@ button:active {
   color: #7342d6;
 }
 
+.error-message {
+  color: red;
+  font-size: 36px;
+  font-weight: 900;
+  text-align: center;
+  padding-bottom: 40px;
+}
 .logo {
   padding: 16px;
   width: 140px;
+  border-radius: 50%;
 }
 
 .nav__container {
@@ -191,7 +199,7 @@ header {
 .header__container {
   width: 100%;
   max-width: 720px;
-  margin: 80px auto;
+  margin: 60px auto;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -202,11 +210,12 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 40px;
 }
 
 .header__img--wrapper {
-  padding-top: 40px;
+  padding: 40px;
+  margin: 0 48px;
+  text-align: center;
 }
 
 .container {
@@ -233,8 +242,8 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 60px;
-  font-size: 60px;
+  padding-bottom: 40px;
+  font-size: 40px;
   color: #7342d6;
 }
 
@@ -260,6 +269,12 @@ header {
   }
 }
 
+    .loading {
+        text-align: center;
+        font-size: 48px;
+        color: red;
+    }
+
 /* 
 
 MOVIES 
@@ -269,15 +284,18 @@ MOVIES
 .movies {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  padding: 28px;
 }
 
 .movie {
-  max-width: calc(100%/3);
+  width: calc(100%/3);
   padding: 24px;
+  text-align: center;
 }
 
 .movie__img {
-  max-height: 280px;
+  width: 230px;
   transition: all 300ms ease;
   cursor: not-allowed;
 }
@@ -314,11 +332,12 @@ FOOTER
 */
 
 footer {
-  background-color: #242424;
+  background-color: #131111;
 }
 
 .footer__logo {
   display: flex;
+  border-radius: 50%;
 }
 
 .footer__logo--img {
@@ -353,7 +372,7 @@ footer {
   }
 
   button {
-    font-size: 18px;
+    font-size: 14px;
   }
 
   .movie {
@@ -369,5 +388,20 @@ footer {
 
   .nav__links {
     display: none;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
   }
 }

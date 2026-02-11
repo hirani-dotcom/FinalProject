@@ -1,22 +1,27 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Movie Library</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Library</title>
     <link rel="stylesheet" href="styles.css" />
-    <script src="https://kit.fontawesome.com/dad788b704.js" crossorigin="anonymous"></script>
+    <script
+      src="https://kit.fontawesome.com/dad788b704.js"
+      crossorigin="anonymous"
+    ></script>
     <script src="app.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <section id="landing">
       <nav>
         <div class="nav__container">
           <img class="logo" src="./assets/SilverScreenWorld Logo.jpeg" alt="" />
           <ul class="nav__links">
             <li><a href="#" class="nav__link">Home</a></li>
-            <li><a href="#" class="nav__link">Search</a></li>
-            <li><a href="#" class="nav__link nav__link--primary">Contact</a></li>
+            <li><a href="#landing" class="nav__link">Movie Search</a></li>
+            <li>
+              <a href="#" class="nav__link nav__link--primary">Contact</a>
+            </li>
           </ul>
           <button class="btn__menu" onclick="openMenu()">
             <i class="fas fa-bars"></i>
@@ -30,13 +35,14 @@
                 <a href="#" class="menu__link" onclick="closeMenu()">Home</a>
               </li>
               <li class="menu__list">
-                <a href="#features" class="menu__link" onclick="closeMenu()"
-                  >Books</a
+                <a href="#landing" class="menu__link" onclick="closeMenu()"
+                  >Movie Search</a
                 >
               </li>
               <li class="menu__list">
                 <a class="menu__link no-cursor" onclick="closeMenu()"
-                  >Contacts</a>
+                  >Contacts</a
+                >
               </li>
             </ul>
           </div>
@@ -45,25 +51,32 @@
       <header>
         <div class="header__container">
           <div class="header__description">
-            <h1>America's most popular movie platform</h1>
+            <h1>America's most popular <br>movie platform</h1>
             <h2>
-              Find your Favorite<span class="purple"> Fast & Furious</span> movies with <br> Silver Screen World
+              Find your <span class="purple">All-Time Favorite</span> movies
+              <br />with 🎬 Silver Screen World
             </h2>
-            <select name="" id="filter" onchange="filterMovies(event)">
-              <option value="" disabled selected>Sort</option>              
-              <option value="newest to oldest">Newest to Oldest</option>              
-              <option value="oldest to newest">Oldest to Newest</option>
-              <option value="alphabetical a to z">Alphabetically A - Z</option>
-              <option value="alphabetical z to a">Alphabetically Z - A</option>
-            </select>
+            <div class="search-container">
+              <input type="text" size="25" id="searchInput" placeholder="Movie Name Keyword(s)" />      
+              <select id="sortOption">
+                <option value="" disabled selected>Sort by . . .</option>
+                <option value="alphabetical a to z">Name (A - Z)</option>
+                <option value="alphabetical z to a">Name (Z - A)</option>
+                <option value="year old to new">Year (Oldest to Newest)</option>
+                <option value="year new to old">Year (Newest to Oldest)</option>
+              </select>
+              <button onclick="searchMovies()">Search</button>
+            </div>
           </div>
-          <div class="movies">
-            <i class="fas fa-spinner movies__loading--spinner"></i>
-          </div>
-          <figure class="header__img--wrapper">
-            <img src="./assets/FaF_VD.avif" alt="" />
-          </figure>
         </div>
+
+<div id="loading" class="loading" style="display:none;">Loading...</div>
+
+        <div class="movies" id="moviesContainer">
+        <figure class="header__img--wrapper">
+          <img src="./assets/movies-collage.jpg" alt="" />
+        </figure>
+      </div>
       </header>
     </section>
 
@@ -81,10 +94,12 @@
           <div class="footer__list">
             <a href="#" class="footer__link">Home</a>
             <a class="footer__link no-cursor">About</a>
-            <a class="footer__link no-cursor">Movies</a>
+            <a href="#" class="footer__link">Movies</a>
             <a class="footer__link no-cursor">Contact</a>
           </div>
-          <div class="footer__copyright">Copyright &copy; 2026 Silver Screen World</div>
+          <div class="footer__copyright">
+            Copyright &copy; 2026 Silver Screen World
+          </div>
         </div>
       </div>
     </footer>

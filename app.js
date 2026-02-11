@@ -6,130 +6,77 @@ function closeMenu() {
   document.body.classList.remove('menu--open')
 }
 
-let movies;
+async function searchMovies() {
+  const query = document.getElementById("searchInput").value.trim();
+  const sortOption = document.getElementById("sortOption").value;
+  const moviesContainer = document.getElementById("moviesContainer");
+    const loadingEl = document.getElementById("loading");
 
-async function renderMovies(filter) {
-  const moviesWrapper = document.querySelector(".movies");
 
-  moviesWrapper.classList += ' movies__loading';
-    if (!movies) {
-      movies = await getMovies();
-    }
-  moviesWrapper.classList.remove ('movies__loading');
+  moviesContainer.innerHTML = "";
 
-  if (filter === 'newest to oldest') {
-    movies.sort((a,b) => (b.Year) - (a.Year));
-  } else if (filter === 'oldest to newest') {
-    movies.sort((a,b) => (a.Year) - (b.Year));
-  } else if (filter === 'alphabetical a to z') {
-    movies.sort((a,b) => a.Title.localeCompare(b.Title));
-  } else if (filter === 'alphabetical z to a') {
-    movies.sort((a,b) => b.Title.localeCompare(a.Title));
+  if (!query) {
+    moviesContainer.innerHTML = "<p class='error-message'>Please enter a movie name.</p>";
+    return;
   }
 
-  const firstSixMovies = movies.slice(0,6);
-
-  const moviesHTML = firstSixMovies
-    .map((movie) =>  {
-      return `<div class="movie">
-    <figure class="movie__img--wrapper">
-        <img class="movie__img" src="${movie.Poster}">
-    </figure>
-    <div class="movie__title">
-      ${movie.Title}
-    </div>
-    <div class="movie__year">
-      ${movie.Year}
-    </div>
-  </div>`;
-    })
-    .join("");
-
-  moviesWrapper.innerHTML = moviesHTML;
-};
-
-function filterMovies(event) {
-  renderMovies(event.target.value);
-}
+    loadingEl.style.display = "block";
 
 
-// // Movie data
+  try {
+    const response = await fetch(
+      `https://www.omdbapi.com/?apikey=${"300143c"}&s=${encodeURIComponent(query)}&type=movie`,
+    );
+    const data = await response.json(); 
 
-function getMovies(event) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve([
-    {
-      Title: "The Fast and the Furious",
-      Year: 2001,
-      imdbID: "tt0232500",
-      Type: "movie",
-      Poster: "https://m.media-amazon.com/images/M/MV5BZGRiMDE1NTMtMThmZS00YjE4LWI1ODQtNjRkZGZlOTg2MGE1XkEyXkFqcGc@._V1_SX300.jpg"
-    },
-    {
-      Title: "Fast & Furious 6",
-      Year: 2013,
-      imdbID: "tt1905041",
-      Type: "movie",
-      Poster: "https://m.media-amazon.com/images/M/MV5BMTM3NTg2NDQzOF5BMl5BanBnXkFtZTcwNjc2NzQzOQ@@._V1_SX300.jpg"
-    },
-    {
-      Title: "Fast Five",
-      Year: 2011,
-      imdbID: "tt1596343",
-      Type: "movie",
-      Poster: "https://m.media-amazon.com/images/M/MV5BMTUxNTk5MTE0OF5BMl5BanBnXkFtZTcwMjA2NzY3NA@@._V1_SX300.jpg"
-    },
-    {
-      Title: "Fast & Furious",
-      Year: 2009,
-      imdbID: "tt1013752",
-      Type: "movie",
-      Poster: "https://m.media-amazon.com/images/M/MV5BM2Y1YzhkNzUtMzhmZC00OTFkLWJjZDktMWYzZmQ0Y2Y5ODcwXkEyXkFqcGc@._V1_SX300.jpg"
-    },
-    {
-      Title: "The Fast and the Furious: Tokyo Drift",
-      Year: 2006,
-      imdbID: "tt0463985",
-      Type: "movie",
-      Poster: "https://m.media-amazon.com/images/M/MV5BMTQ2NTMxODEyNV5BMl5BanBnXkFtZTcwMDgxMjA0MQ@@._V1_SX300.jpg"
-    },
-    {
-      Title: "2 Fast 2 Furious",
-      Year: 2003,
-      imdbID: "tt0322259",
-      Type: "movie",
-      Poster: "https://m.media-amazon.com/images/M/MV5BOTQzYzEwNWMtOTAwYy00YWYwLWE1NTEtZTkxOGQxZTM0M2VhXkEyXkFqcGc@._V1_SX300.jpg"
-    },
-    {
-      Title: "Fast & Furious Presents: Hobbs & Shaw",
-      Year: 2019,
-      imdbID: "tt6806448",
-      Type: "movie",
-      Poster: "https://m.media-amazon.com/images/M/MV5BNmU4OTA5NGYtMTFjMS00MzgxLWFjNTMtYjdlMThlYzc4M2M4XkEyXkFqcGc@._V1_SX300.jpg"
-    },
-    {
-      Title: "F9: The Fast Saga",
-      Year: 2021,
-      imdbID: "tt5433138",
-      Type: "movie",
-      Poster: "https://m.media-amazon.com/images/M/MV5BODJkMTQ5ZmQtNzQxYy00ZWNlLWI0ZGYtYjU1NzdiMjcyNDRmXkEyXkFqcGc@._V1_SX300.jpg"
-    },
-    {
-      Title: "Fast X",
-      Year: 2023,
-      imdbID: "tt5433140",
-      Type: "movie",
-      Poster: "https://m.media-amazon.com/images/M/MV5BYzEwZjczOTktYzU1OS00YjJlLTgyY2UtNWEzODBlN2RjZDEwXkEyXkFqcGc@._V1_SX300.jpg"
-    },
-    {
-      Title: "Fast Times at Ridgemont High",
-      Year: 1982,
-      imdbID: "tt0083929",
-      Type: "movie",
-      Poster: "https://m.media-amazon.com/images/M/MV5BMWM4NTc3N2YtMjk2Ny00MTRmLWE4YzItNTVhMTRlODVkNmE5XkEyXkFqcGc@._V1_SX300.jpg"
+        loadingEl.style.display = "none";
+
+    if (data.Response === "False") {
+      moviesContainer.innerHTML = `<p>${data.Error}</p>`;
+      return;
     }
-  ]);
-    }, 1000);
-  });
+
+
+    let movies = data.Search;
+
+    // Sort movies
+    if (sortOption === "alphabetical a to z") {
+      movies.sort((a, b) => a.Title.localeCompare(b.Title));
+    } else if (sortOption === "alphabetical z to a") {
+      movies.sort((a, b) => b.Title.localeCompare(a.Title));
+    } else if (sortOption === "year old to new") {
+      movies.sort((a, b) => parseInt(a.Year) - parseInt(b.Year));
+    } else if (sortOption === "year new to old") {
+      movies.sort((a, b) => parseInt(b.Year) - parseInt(a.Year));
+    }
+
+    // Limit to first 6 results
+    movies = movies.slice(0, 6);
+
+    // Display movies
+    movies.forEach((movie) => {
+      const poster =
+        movie.Poster !== "N/A"
+          ? movie.Poster
+          : "https://via.placeholder.com/200x300?text=No+Image";
+      const movieCard = `
+        <div class="movie">
+          <figure class="movie__img--wrapper">
+              <img class="movie__img" src="${poster}" alt="${movie.Title}">
+          </figure>
+          <div class="movie__title">
+              <h3>${movie.Title}</h3>
+          </div>
+          <div class="movie__year">
+              <p>${movie.Year}</p>
+          </div>
+        </div>
+      `;
+      moviesContainer.innerHTML += movieCard;
+    });
+  } catch (error) {
+    console.error(error);
+    moviesContainer.innerHTML =
+      "<p>Something went wrong. Please try again later.</p>";
+  }
 }
