@@ -40,13 +40,13 @@ async function searchMovies() {
     let movies = data.Search;
 
     // Sort movies
-    if (sortOption === "alphabetical a to z") {
+    if (sortOption === "alpha a-z") {
       movies.sort((a, b) => a.Title.localeCompare(b.Title));
-    } else if (sortOption === "alphabetical z to a") {
+    } else if (sortOption === "alpha z-a") {
       movies.sort((a, b) => b.Title.localeCompare(a.Title));
-    } else if (sortOption === "year old to new") {
+    } else if (sortOption === "old-new") {
       movies.sort((a, b) => parseInt(a.Year) - parseInt(b.Year));
-    } else if (sortOption === "year new to old") {
+    } else if (sortOption === "new-old") {
       movies.sort((a, b) => parseInt(b.Year) - parseInt(a.Year));
     }
 
